@@ -1,5 +1,7 @@
 using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario;
+using Serilog;
+using Serilog.Events;
 
 namespace ControleDeMedicamentos.WebApp;
 
@@ -10,12 +12,31 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        //Injeção de Dependência
-        builder.Services.AddScoped(ConfigurarContextoDados);
-        builder.Services.AddScoped<RepositorioFuncionarioEmArquivo>();    // Injeta um serviço por requisição HTTP
-        //builder.Services.AddSingleton(); // Instancia uma vez o serviço e injeta em todas as requisições
+        //Injeção de Dependência criada por nós
+        builder.Services.AddScoped((_) => new ContextoDados(true));
+        builder.Services.AddScoped<RepositorioFuncionarioEmArquivo>();    // Injeta um serviço por requisição HTTP (ação)
+        //builder.Services.AddSingleton(); // Injeta uma instancia unica do serviço globalmente
         //builder.Services.AddTransient(); // Intancia o serviço TODA VEZ que for chamado em uma requisição
 
+        var caminhoAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+        var caminhoArquivoLogs = Path.Combine(caminhoAppData, "ControleDeMedicamentos", "erro.log");
+
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File(caminhoArquivoLogs, LogEventLevel.Error)
+            .WriteTo.NewRelicLogs(
+                endpointUrl: "https://log-api.newrelic.com/log/v1",
+                applicationName: "controle-de-medicamentos",
+                licenseKey: "b4e6361ee88e578da1a5dc12fcf34c7dFFFFNRAL"
+            )
+            .CreateLogger();
+
+        builder.Logging.ClearProviders();
+
+        builder.Services.AddSerilog();
+
+        //Injeção de Depencências da Microsoft
         // Add services to the container.
         builder.Services.AddControllersWithViews();
 
@@ -43,10 +64,6 @@ public class Program
         app.Run();
     }
 
-    private static ContextoDados ConfigurarContextoDados(IServiceProvider serviceProvider)
-    {
-        return new ContextoDados(true);
-    }
+    //private static ContextoDados ConfigurarContextoDados(IServiceProvider serviceProvider) //Substituido pela linha 14
+    //{ return new ContextoDados(true); }
 }
-
-//A49 - V01
