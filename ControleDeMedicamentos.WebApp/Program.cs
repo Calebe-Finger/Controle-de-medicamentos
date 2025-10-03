@@ -1,4 +1,5 @@
 using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
+using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFornecedor;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario;
 using Serilog;
 using Serilog.Events;
@@ -15,6 +16,7 @@ public class Program
         //Injeção de Dependência criada por nós
         builder.Services.AddScoped((_) => new ContextoDados(true));
         builder.Services.AddScoped<RepositorioFuncionarioEmArquivo>();    // Injeta um serviço por requisição HTTP (ação)
+        builder.Services.AddScoped<RepositorioFornecedorEmArquivo>();
         //builder.Services.AddSingleton(); // Injeta uma instancia unica do serviço globalmente
         //builder.Services.AddTransient(); // Intancia o serviço TODA VEZ que for chamado em uma requisição
 
@@ -67,3 +69,4 @@ public class Program
     //private static ContextoDados ConfigurarContextoDados(IServiceProvider serviceProvider) //Substituido pela linha 14
     //{ return new ContextoDados(true); }
 }
+

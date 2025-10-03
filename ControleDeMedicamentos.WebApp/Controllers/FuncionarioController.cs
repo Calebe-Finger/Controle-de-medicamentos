@@ -23,8 +23,6 @@ public class FuncionarioController : Controller
     {
         var funcionarios = repositorioFuncionario.SelecionarRegistros();
 
-        logger.LogInformation("{QuantidadeRegistros} registros foram selecionados.", funcionarios.Count);
-
         var visualizarVm = new VisualizarFuncionariosViewModel(funcionarios);
 
         return View(visualizarVm);

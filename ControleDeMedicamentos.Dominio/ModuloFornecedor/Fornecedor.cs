@@ -2,29 +2,29 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
-namespace ControleDeMedicamentos.Dominio.ModuloFuncionario;
+namespace ControleDeMedicamentos.Dominio.ModuloFornecedor;
 
-public class Funcionario : EntidadeBase<Funcionario>
+public class Fornecedor : EntidadeBase<Fornecedor>
 {
     public string Nome { get; set; }
     public string Telefone { get; set; }
-    public string Cpf { get; set; }
+    public string Cnpj { get; set; }
 
-    protected Funcionario() { }
+    protected Fornecedor() { }
 
-    public Funcionario(string nome, string telefone, string cpf) : this()
+    public Fornecedor(string nome, string telefone, string cnpj) : this()
     {
         Id = Guid.NewGuid();
         Nome = nome;
         Telefone = telefone;
-        Cpf = cpf;
+        Cnpj = cnpj;
     }
 
-    public override void AtualizarRegistro(Funcionario registroEditado)
+    public override void AtualizarRegistro(Fornecedor registroEditado)
     {
         Nome = registroEditado.Nome;
         Telefone = registroEditado.Telefone;
-        Cpf = registroEditado.Cpf;
+        Cnpj = registroEditado.Cnpj;
     }
 
     public override string Validar()
@@ -43,11 +43,11 @@ public class Funcionario : EntidadeBase<Funcionario>
         else if (!Regex.IsMatch(Telefone, @"^\(?\d{2}\)?\s?(9\d{4}|\d{4})-\d{4}$"))
             erros += "O campo 'Telefone' deve seguir o padrão (DDD) 0000-0000 ou (DDD) 00000-0000.\n";
 
-        if (string.IsNullOrWhiteSpace(Cpf))
-            erros += "O campo 'CPF' é obrigatório.\n";
+        if (string.IsNullOrWhiteSpace(Cnpj))
+            erros += "O campo 'CNPJ' é obrigatório.\n";
 
-        else if (!Regex.IsMatch(Cpf, @"^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$"))
-            erros += "O campo 'CPF' deve seguir o formato 00.000.000/0000-00.\n";
+        else if (!Regex.IsMatch(Cnpj, @"^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$"))
+            erros += "O campo 'CPNJ' deve seguir o formato 00.000.000/0000-00.\n";
 
         return erros;
     }

@@ -1,9 +1,9 @@
-﻿using ControleDeMedicamentos.Dominio.ModuloFuncionario;
+﻿using ControleDeMedicamentos.Dominio.ModuloFornecedor;
 using System.ComponentModel.DataAnnotations;
 
 namespace ControleDeMedicamentos.WebApp.Models;
 
-public class CadastrarFuncionarioViewModel
+public class CadastrarFornecedorViewModel
 {
     [Required(ErrorMessage = "O campo 'Nome' é obrigatório.")]
     [StringLength(100, MinimumLength = 2, ErrorMessage = "O campo 'Nome' deve conter entre 2 e 100 caracteres.")]
@@ -16,24 +16,24 @@ public class CadastrarFuncionarioViewModel
     )]
     public string Telefone { get; set; }
 
-    [Required(ErrorMessage = "O campo 'CPF' é obrigatório.")]
+    [Required(ErrorMessage = "O campo 'CNPJ' é obrigatório.")]
     [RegularExpression(
-        @"^\d{3}\.\d{3}\.\d{3}-\d{2}$",
-        ErrorMessage = "O campo 'CPF' deve seguir o formato 000.000.000-00."
+        @"^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$",
+        ErrorMessage = "O campo 'CNPJ' deve seguir o formato 00.000.000/0000-00."
     )]
-    public string Cpf { get; set; }
+    public string Cnpj { get; set; }
 
-    public CadastrarFuncionarioViewModel() { }
+    public CadastrarFornecedorViewModel() { }
 
-    public CadastrarFuncionarioViewModel(string nome, string telefone, string cpf) : this()
+    public CadastrarFornecedorViewModel(string nome, string telefone, string cnpj) : this()
     {
         Nome = nome;
         Telefone = telefone;
-        Cpf = cpf;
+        Cnpj = cnpj;
     }
 }
 
-public class EditarFuncionarioViewModel
+public class EditarFornecedorViewModel
 {
     public Guid Id { get; set; }
 
@@ -48,53 +48,53 @@ public class EditarFuncionarioViewModel
     )]
     public string Telefone { get; set; }
 
-    [Required(ErrorMessage = "O campo 'CPF' é obrigatório.")]
+    [Required(ErrorMessage = "O campo 'CNPJ' é obrigatório.")]
     [RegularExpression(
-        @"^\d{3}\.\d{3}\.\d{3}-\d{2}$",
-        ErrorMessage = "O campo 'CPF' deve seguir o formato 000.000.000-00."
+       @"^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$",
+        ErrorMessage = "O campo 'CNPJ' deve seguir o formato 00.000.000/0000-00."
     )]
-    public string Cpf { get; set; }
+    public string Cnpj { get; set; }
 
-    public EditarFuncionarioViewModel() { }
+    public EditarFornecedorViewModel() { }
 
-    public EditarFuncionarioViewModel(Guid id, string nome, string telefone, string cpf) : this()
+    public EditarFornecedorViewModel(Guid id, string nome, string telefone, string cnpj) : this()
     {
         Id = id;
         Nome = nome;
         Telefone = telefone;
-        Cpf = cpf;
+        Cnpj = cnpj;
     }
 }
 
-public class ExcluirFuncionarioViewModel
+public class ExcluirFornecedorViewModel
 {
     public Guid Id { get; set; }
     public string Nome { get; set; }
 
-    public ExcluirFuncionarioViewModel() { }
+    public ExcluirFornecedorViewModel() { }
 
-    public ExcluirFuncionarioViewModel(Guid id, string nome) : this()
+    public ExcluirFornecedorViewModel(Guid id, string nome) : this()
     {
         Id = id;
         Nome = nome;
     }
 }
 
-public class VisualizarFuncionariosViewModel
+public class VisualizarFornecedoresViewModel
 {
-    public List<DetalhesFuncionarioViewModel> Registros { get; }
+    public List<DetalhesFornecedorViewModel> Registros { get; }
 
-    public VisualizarFuncionariosViewModel(List<Funcionario> funcionarios)
+    public VisualizarFornecedoresViewModel(List<Fornecedor> fornecedores)
     {
         Registros = [];
 
-        foreach (var f in funcionarios)
+        foreach (var f in fornecedores)
         {
-            var detalhesVM = new DetalhesFuncionarioViewModel(
+            var detalhesVM = new DetalhesFornecedorViewModel(
                 f.Id,
                 f.Nome,
                 f.Telefone,
-                f.Cpf
+                f.Cnpj
             );
 
             Registros.Add(detalhesVM);
@@ -102,18 +102,18 @@ public class VisualizarFuncionariosViewModel
     }
 }
 
-public class DetalhesFuncionarioViewModel
+public class DetalhesFornecedorViewModel
 {
     public Guid Id { get; set; }
     public string Nome { get; set; }
     public string Telefone { get; set; }
-    public string Cpf { get; set; }
+    public string Cnpj { get; set; }
 
-    public DetalhesFuncionarioViewModel(Guid id, string nome, string telefone, string cpf)
+    public DetalhesFornecedorViewModel(Guid id, string nome, string telefone, string cnpj)
     {
         Id = id;
         Nome = nome;
         Telefone = telefone;
-        Cpf = cpf;
+        Cnpj = cnpj;
     }
 }
