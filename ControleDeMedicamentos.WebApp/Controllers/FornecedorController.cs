@@ -31,13 +31,13 @@ public class FornecedorController : Controller
     [HttpGet]
     public IActionResult Cadastrar()
     {
-        var cadastrarVm = new CadastrarFornecedorViewModel();
+        var cadastrarVm = new CadastrarFornecedorViewModels();
 
         return View(cadastrarVm);
     }
 
     [HttpPost]
-    public IActionResult Cadastrar(CadastrarFornecedorViewModel cadastrarVm)
+    public IActionResult Cadastrar(CadastrarFornecedorViewModels cadastrarVm)
     {
         if (!ModelState.IsValid)
             return View(cadastrarVm);

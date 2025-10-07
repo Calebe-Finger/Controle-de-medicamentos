@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ControleDeMedicamentos.WebApp.Models;
 
-public class CadastrarFornecedorViewModel
+public class CadastrarFornecedorViewModels
 {
     [Required(ErrorMessage = "O campo 'Nome' é obrigatório.")]
-    [StringLength(100, MinimumLength = 2, ErrorMessage = "O campo 'Nome' deve conter entre 2 e 100 caracteres.")]
+    [StringLength(50, MinimumLength = 2, ErrorMessage = "O campo 'Nome' deve conter entre 2 e 50 caracteres.")]
     public string Nome { get; set; }
 
     [Required(ErrorMessage = "O campo 'Telefone' é obrigatório.")]
@@ -23,9 +23,9 @@ public class CadastrarFornecedorViewModel
     )]
     public string Cnpj { get; set; }
 
-    public CadastrarFornecedorViewModel() { }
+    public CadastrarFornecedorViewModels() { }
 
-    public CadastrarFornecedorViewModel(string nome, string telefone, string cnpj) : this()
+    public CadastrarFornecedorViewModels(string nome, string telefone, string cnpj) : this()
     {
         Nome = nome;
         Telefone = telefone;

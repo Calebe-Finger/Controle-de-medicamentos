@@ -3,9 +3,9 @@ using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
 
 namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario;
 
-public class RepositorioFuncionarioEmArquivo : RepositorioBaseEmArquivo<Funcionario>
+public class RepositorioMedicamentoEmArquivo : RepositorioBaseEmArquivo<Funcionario>
 {
-    public RepositorioFuncionarioEmArquivo(ContextoDados contextoDados) : base(contextoDados) { }
+    public RepositorioMedicamentoEmArquivo(ContextoDados contextoDados) : base(contextoDados) { }
 
     protected override List<Funcionario> ObterRegistros()
     {
