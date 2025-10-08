@@ -25,6 +25,9 @@ public class Program
         var caminhoAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
         var caminhoArquivoLogs = Path.Combine(caminhoAppData, "ControleDeMedicamentos", "erro.log");
+        
+        //Variaveis de Ambiente
+        var licenseKey = builder.Configuration["NEWRELIC_LICENSE_KEY"]
 
         Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()
@@ -32,7 +35,7 @@ public class Program
             .WriteTo.NewRelicLogs(
                 endpointUrl: "https://log-api.newrelic.com/log/v1",
                 applicationName: "controle-de-medicamentos",
-                licenseKey: "b4e6361ee88e578da1a5dc12fcf34c7dFFFFNRAL"
+                licenseKey: licenseKey
             )
             .CreateLogger();
 
