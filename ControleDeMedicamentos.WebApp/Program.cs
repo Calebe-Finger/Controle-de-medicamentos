@@ -16,18 +16,18 @@ public class Program
 
         //Injeção de Dependência criada por nós
         builder.Services.AddScoped((_) => new ContextoDados(true));
-        builder.Services.AddScoped<Infraestrutura.Arquivos.ModuloFuncionario.RepositorioMedicamentoEmArquivo>();    // Injeta um serviço por requisição HTTP (ação)
+        builder.Services.AddScoped<RepositorioMedicamentoEmArquivo>();    // Injeta um serviço por requisição HTTP (ação)
         builder.Services.AddScoped<RepositorioFornecedorEmArquivo>();
-        builder.Services.AddScoped<Infraestrutura.Arquivos.ModuloMedicamento.RepositorioMedicamentoEmArquivo>();
+        builder.Services.AddScoped<RepositorioFuncionarioEmArquivo>();
         //builder.Services.AddSingleton(); // Injeta uma instancia unica do serviço globalmente
         //builder.Services.AddTransient(); // Intancia o serviço TODA VEZ que for chamado em uma requisição
 
         var caminhoAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
         var caminhoArquivoLogs = Path.Combine(caminhoAppData, "ControleDeMedicamentos", "erro.log");
-        
+
         //Variaveis de Ambiente
-        var licenseKey = builder.Configuration["NEWRELIC_LICENSE_KEY"]
+        var licenseKey = builder.Configuration["NEWRELIC_LICENSE_KEY"];
 
         Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()
