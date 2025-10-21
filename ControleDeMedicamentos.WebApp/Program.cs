@@ -2,8 +2,7 @@ using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFornecedor;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento;
-using Serilog;
-using Serilog.Events;
+using ControleDeMedicamentos.WebApp.DependencyInjection;
 
 namespace ControleDeMedicamentos.WebApp;
 
@@ -22,26 +21,7 @@ public class Program
         //builder.Services.AddSingleton(); // Injeta uma instancia unica do serviço globalmente
         //builder.Services.AddTransient(); // Intancia o serviço TODA VEZ que for chamado em uma requisição
 
-        var caminhoAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-        var caminhoArquivoLogs = Path.Combine(caminhoAppData, "ControleDeMedicamentos", "erro.log");
-
-        //Variaveis de Ambiente
-        var licenseKey = builder.Configuration["NEWRELIC_LICENSE_KEY"];
-
-        Log.Logger = new LoggerConfiguration()
-            .WriteTo.Console()
-            .WriteTo.File(caminhoArquivoLogs, LogEventLevel.Error)
-            .WriteTo.NewRelicLogs(
-                endpointUrl: "https://log-api.newrelic.com/log/v1",
-                applicationName: "controle-de-medicamentos",
-                licenseKey: licenseKey
-            )
-            .CreateLogger();
-
-        builder.Logging.ClearProviders();
-
-        builder.Services.AddSerilog();
+        SerilogConfig.AddSerilogConfig(builder.Services, builder.Logging, builder.Configuration);
 
         //Injeção de Depencências da Microsoft
         // Add services to the container.
@@ -70,8 +50,6 @@ public class Program
 
         app.Run();
     }
-
-    //private static ContextoDados ConfigurarContextoDados(IServiceProvider serviceProvider) //Substituido pela linha 14
-    //{ return new ContextoDados(true); }
 }
+
 
