@@ -3,9 +3,9 @@ using Serilog.Events;
 
 namespace ControleDeMedicamentos.WebApp.DependencyInjection
 {
-    public class SerilogConfig
+    public static class SerilogConfig
     {
-        public static void AddSerilogConfig(IServiceCollection services, ILoggingBuilder logging, IConfiguration configuration)
+        public static void AddSerilogConfig(this IServiceCollection services, ILoggingBuilder logging, IConfiguration configuration)
         {
             //Pegar o caminho do App Data
             var caminhoAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);

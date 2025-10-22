@@ -21,7 +21,8 @@ public class Program
         //builder.Services.AddSingleton(); // Injeta uma instancia unica do serviço globalmente
         //builder.Services.AddTransient(); // Intancia o serviço TODA VEZ que for chamado em uma requisição
 
-        SerilogConfig.AddSerilogConfig(builder.Services, builder.Logging, builder.Configuration);
+        //Static + Extension Method
+        builder.Services.AddSerilogConfig(builder.Logging, builder.Configuration);
 
         //Injeção de Depencências da Microsoft
         // Add services to the container.
