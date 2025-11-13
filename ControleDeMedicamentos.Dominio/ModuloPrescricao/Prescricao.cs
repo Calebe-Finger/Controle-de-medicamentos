@@ -1,8 +1,30 @@
 ﻿using ControleDeMedicamentos.Dominio.Compartilhado;
+using ControleDeMedicamentos.Dominio.ModuloMedicamento;
 using ControleDeMedicamentos.Dominio.ModuloPaciente;
+using System.Numerics;
 using System.Text.RegularExpressions;
 
 namespace ControleDeMedicamentos.Dominio.ModuloPrescricao;
+
+public class  MedicamentoPrescrito
+{
+    public Guid Id { get; set; }
+    public Medicamento Medicamento { get; set; }
+    public string Dosagem {  get; set; }
+    public string Periodo { get; set; }
+    public int Quantidade { get; set; }
+
+    public MedicamentoPrescrito() { }
+
+    public MedicamentoPrescrito(Medicamento medicamento, string dosagem, string periodo, int quantidade)
+    {
+        Id = Guid.NewGuid();
+        Medicamento = medicamento;
+        Dosagem = dosagem;
+        Periodo = periodo;
+        Quantidade = quantidade;
+    }
+}
 
 public class Prescricao : EntidadeBase<Prescricao>
 {
@@ -11,6 +33,7 @@ public class Prescricao : EntidadeBase<Prescricao>
     public DateTime DataValidade { get; set; }
     public string CrmMedico { get; set; }
     public Paciente Paciente { get; set; }
+    public List<MedicamentoPrescrito> MedicamentosPrescritos {  get; set; } = new List<MedicamentoPrescrito>();
 
     public Prescricao() { }
 
@@ -22,6 +45,27 @@ public class Prescricao : EntidadeBase<Prescricao>
         DataValidade = dataValidade;
         CrmMedico = crmMedico;
         Paciente = paciente;
+    }
+
+    public MedicamentoPrescrito AdicionarMedicamentoPrescrito(Medicamento medicamento, string dosagem, string periodo, int quantidade)
+    {
+        var medicamentoPrescrito = new MedicamentoPrescrito(medicamento, dosagem, periodo, quantidade);
+
+        MedicamentosPrescritos.Add(medicamentoPrescrito);
+
+        return medicamentoPrescrito;
+    }
+
+    public bool RemoverMedicamentoPrescrito(Guid medicamentoPrescritoId)
+    {
+        var medicamentoPrescrito = MedicamentosPrescritos.Find(m => m.Id == medicamentoPrescritoId);
+
+        if (medicamentoPrescrito is null)
+            return false;
+
+        MedicamentosPrescritos.Remove(medicamentoPrescrito);
+
+        return true;
     }
 
     public override void AtualizarRegistro(Prescricao registroAtualizado)

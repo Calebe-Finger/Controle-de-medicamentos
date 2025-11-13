@@ -39,8 +39,8 @@ public class Funcionario : EntidadeBase<Funcionario>
         if (string.IsNullOrWhiteSpace(Telefone))
             erros += "O campo 'Telefone' é obrigatório.\n";
 
-        else if (!Regex.IsMatch(Telefone, @"^\(?\d{2}\)?\s?(9\d{4}|\d{4})-\d{4}$"))
-            erros += "O campo 'Telefone' deve seguir o padrão (DDD) 0000-0000 ou (DDD) 00000-0000.\n";
+        else if (!Regex.IsMatch(Telefone, @"^\(?\d{2}\)?\s?(\d{5}|\d{4})-\d{4}$"))
+            erros += "O campo 'Telefone' deve seguir o padrão (DDD) 0000-0000.\n";
 
         if (string.IsNullOrWhiteSpace(Cpf))
             erros += "O campo 'CPF' é obrigatório.\n";

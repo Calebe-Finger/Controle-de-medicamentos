@@ -11,8 +11,8 @@ public class CadastrarFuncionarioViewModels
 
     [Required(ErrorMessage = "O campo 'Telefone' é obrigatório.")]
     [RegularExpression(
-        @"^\(?\d{2}\)?\s?(9\d{4}|\d{4})-?\d{4}$",
-        ErrorMessage = "O campo 'Telefone' deve seguir o padrão (DDD) 0000-0000 ou (DDD) 00000-0000."
+        @"^\(?\d{2}\)?\s?(\d{5}|\d{4})-?\d{4}$",
+        ErrorMessage = "O campo 'Telefone' deve seguir o padrão (DDD) 0000-0000."
     )]
     public string Telefone { get; set; }
 
@@ -43,8 +43,8 @@ public class EditarFuncionarioViewModel
 
     [Required(ErrorMessage = "O campo 'Telefone' é obrigatório.")]
     [RegularExpression(
-        @"^\(?\d{2}\)?\s?(9\d{4}|\d{4})-\d{4}$",
-        ErrorMessage = "O campo 'Telefone' deve seguir o padrão (DDD) 0000-0000 ou (DDD) 00000-0000."
+        @"^\(?\d{2}\)?\s?(\d{5}|\d{4})-\d{4}$",
+        ErrorMessage = "O campo 'Telefone' deve seguir o padrão (DDD) 0000-0000."
     )]
     public string Telefone { get; set; }
 
