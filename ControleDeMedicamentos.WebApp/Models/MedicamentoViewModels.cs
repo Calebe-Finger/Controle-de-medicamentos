@@ -99,7 +99,7 @@ namespace ControleDeMedicamentos.WebApp.Models
                     m.Nome,
                     m.Descricao,
                     m.Fornecedor.Nome,
-                    m.QuantidadeEstoque,
+                    m.QuantidadeEmEstoque,
                     m.EmFalta
                 );
 
